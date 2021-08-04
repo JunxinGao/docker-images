@@ -1,4 +1,3 @@
-ARG WORKSPACE="/work"
 ARG BASE_IMAGE="ubuntu:18.04"
 ARG CONDA_HOME="/opt"
 FROM ${BASE_IMAGE}
@@ -25,4 +24,4 @@ RUN curl ${ANACONDA} -o anaconda.sh && \
     echo "conda activate base" >> ~/.bashrc
 ENV PATH="${CONDA_HOME}/conda/bin:${PATH}"
 
-WORKDIR ${WORKSPACE}
+WORKDIR /work

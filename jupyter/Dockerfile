@@ -22,4 +22,4 @@ RUN mkdir -p ${HOME}/.jupyter && \
     echo "c.NotebookApp.allow_root = True" >> ${NOTEBOOK_CONFIG} && \
     echo "c.NotebookApp.open_browser = False" >> ${NOTEBOOK_CONFIG}
 
-WORKDIR "/work"
+WORKDIR /work
