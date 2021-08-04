@@ -1,7 +1,6 @@
-ARG HOME="/root"
+ARG WORKSPACE="/work"
 ARG BASE_IMAGE="ubuntu:18.04"
 ARG CONDA_HOME="/opt"
-ARG JUPYTER_TOKEN="''"
 FROM ${BASE_IMAGE}
 
 LABEL maintainer="Junxin Gao <junxin.gao@outlook.com>"
@@ -26,14 +25,4 @@ RUN curl ${ANACONDA} -o anaconda.sh && \
     echo "conda activate base" >> ~/.bashrc
 ENV PATH="${CONDA_HOME}/conda/bin:${PATH}"
 
-# Setup Jupyter notebook configuration
-ARG HOME
-ENV HOME="${HOME}"
-ENV NOTEBOOK_CONFIG="${HOME}/.jupyter/jupyter_notebook_config.py"
-RUN mkdir ${HOME}/.jupyter && \
-    echo "c.NotebookApp.token = ${JUPYTER_TOKEN}" >> ${NOTEBOOK_CONFIG} && \
-    echo "c.NotebookApp.ip = '0.0.0.0'" >> ${NOTEBOOK_CONFIG} && \
-    echo "c.NotebookApp.allow_root = True" >> ${NOTEBOOK_CONFIG} && \
-    echo "c.NotebookApp.open_browser = False" >> ${NOTEBOOK_CONFIG}
-
-WORKDIR ${HOME}
+WORKDIR ${WORKSPACE}
