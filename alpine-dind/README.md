@@ -1,11 +1,21 @@
 # Quick start
 
-Default root password: dind (PermitRootLogin: yes !!!)
+Non-root user configs(with sudo)
+
+| Environ Key | Default value | Remark               |
+| ----------- | ------------- | -------------------- |
+| USER_NAME   | user          |                      |
+| USER_UID    | 1001          |                      |
+| USER_GID    | 1001          |                      |
+| USER_PW     | user          | same as ${USER_NAME} |
+| WORK_HOME   | /work         | ${USER_NAME}'s home  |
+
+*root user password: dind (PermitRootLogin: no)*
 
 Use docker-compose
 
 ~~~
-version: "3.6"
+version: "3.3"
 services:
   dameon:
     image: junxin/alpine-dind:latest
@@ -18,5 +28,6 @@ services:
       - "2233:22"
     environment:
       DOCKER_TLS_CERTDIR: /certs
+      USER_PW: dind # change password from 'user' to 'dind'
     privileged: true
 ~~~

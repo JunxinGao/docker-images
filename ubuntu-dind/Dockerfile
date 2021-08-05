@@ -94,6 +94,7 @@ RUN set -eux; \
         git \
         screen \
         unzip \
+        sudo \
     && rm -rf /var/lib/apt/list/*
 		# ip6tables \
 		# e2fsprogs-extra \
@@ -108,8 +109,8 @@ RUN set -eux; \
 	# 	apk add --no-cache zfs; \
 	# fi
 
-# !!! permit root  login !!!
-RUN sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config \
+# !!! not permit root  login !!!
+RUN sed -i "s/#PermitRootLogin.*/PermitRootLogin no/g" /etc/ssh/sshd_config \
     && mkdir /run/sshd \
     && echo "root:dind" | chpasswd
 

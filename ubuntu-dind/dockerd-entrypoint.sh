@@ -2,7 +2,39 @@
 set -eu
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+
+USER_NAME=${USER_NAME:-user}
+USER_UID=${USER_UID:-1001}
+USER_GID=${USER_GID:-1001}
+USER_PW=${USER_PW:-${USER_NAME}}
+WORK_HOME=${WORK_HOME:-"/work"}
+SUDO_GROUP=${SUDO_GROUP:-sudo}
+
+if grep -q docker /etc/group; then
+    echo "group: docker exists"
+else
+    groupadd docker
+    echo "group: docker added"
+fi
+
+if id -u ${USER_NAME} > /dev/null 2>&1; then
+    echo "user: ${USER_NAME} exists"
+else
+    useradd ${USER_NAME} -s /bin/bash -d ${WORK_HOME} -u ${USER_UID} && echo "${USER_NAME}:${USER_PW}" | chpasswd && usermod ${USER_NAME} -aG docker && usermod ${USER_NAME} -aG ${SUDO_GROUP}
+    echo "user: ${USER_NAME} added"
+fi
+
+sed -i "s/#%wheel/%wheel/g" /etc/sudoers
+sed -i "s/# %wheel/%wheel/g" /etc/sudoers
+sed -i "s/#%sudo/%sudo/g" /etc/sudoers
+sed -i "s/# %sudo/%sudo/g" /etc/sudoers
+
+if [ -d ${WORK_HOME} ]; then
+    chown ${USER_UID}:${USER_GID} ${WORK_HOME}
+fi
+
 /usr/sbin/sshd -D &
+
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
 _tls_ensure_private() {
