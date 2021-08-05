@@ -10,7 +10,7 @@ for d in `ls .`; do
       ../build.sh
       if [ $? == 0 ]; then
         echo ".."
-        #../push.sh
+        ../push.sh
       fi
       cd ..
     fi
