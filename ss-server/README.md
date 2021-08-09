@@ -9,7 +9,7 @@ server_addr = YOUR_FRP_SERVER_ADDR
 server_port = YOUR_FRP_SERVER_PORT
 token =       YOUR_FRP_SERVER_TOKEN
 
-[tclsh-ss]
+[frp-ss]
 type = tcp
 local_ip = 127.0.0.1
 local_port = 8388
