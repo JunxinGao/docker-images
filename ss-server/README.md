@@ -1,4 +1,4 @@
-# tutorials
+# Tutorials
 
 shadowsocks-libev + frpc
 
