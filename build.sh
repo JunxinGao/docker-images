@@ -1,8 +1,16 @@
 #!/bin/bash
 
-echo "Start building ${PWD##*/}"
-echo ${PWD##*/}:latest
-docker build . -t junxin/${PWD##*/}:latest -t junxin/${PWD##*/}:$(date +%F) -f Dockerfile
+if [ -f .TAG ]; then
+  TAG=`head -n +1 .TAG`
+else
+  TAG=$(date +%F)
+fi
+echo $TAG
+
+echo "Building ${PWD##*/}:$TAG ..."
+
+docker build . -t junxin/${PWD##*/}:latest -t junxin/${PWD##*/}:$TAG -f Dockerfile
+
 if [ $? != 0 ]; then
   echo "❌  Build failed"
   exit 127
