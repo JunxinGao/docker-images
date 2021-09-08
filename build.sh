@@ -6,9 +6,11 @@ else
   TAG=$(date +%F)
 fi
 
+IMAGE_NAME=junxin/${PWD##*/}
+
 echo "Building ${PWD##*/}:$TAG ..."
 
-docker build . -t junxin/${PWD##*/}:latest -t junxin/${PWD##*/}:$TAG -f Dockerfile
+docker build . -t $IMAGE_NAME:latest -t $IMAGE_NAME:$TAG -f Dockerfile
 
 if [ $? != 0 ]; then
   echo "❌  Build failed"

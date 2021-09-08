@@ -9,7 +9,6 @@ for d in `ls .`; do
       echo "✈️   building $d"
       ../build.sh
       if [ $? == 0 ]; then
-        echo ".."
         ../push.sh
       fi
       cd ..
