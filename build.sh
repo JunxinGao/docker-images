@@ -5,7 +5,6 @@ if [ -f .TAG ]; then
 else
   TAG=$(date +%F)
 fi
-echo $TAG
 
 echo "Building ${PWD##*/}:$TAG ..."
 
