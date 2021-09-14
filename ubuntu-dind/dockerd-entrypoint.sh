@@ -33,7 +33,7 @@ if [ -d ${WORK_HOME} ]; then
     chown ${USER_UID}:${USER_GID} ${WORK_HOME}
 fi
 
-/usr/sbin/sshd -D &
+service ssh start
 
 echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 
