@@ -3,8 +3,8 @@ IMAGE_NAME=junxin/${PWD##*/}
 echo "Start pushing $IMAGE_NAME:latest"
 docker push $IMAGE_NAME:latest
 
-if [ -f .TAG ]; then
-  TAG=`head -n +1 .TAG`
+if [ -f build_tag ]; then
+  TAG=`head -n +1 build_tag`
 else
   TAG=$(date +%F)
 fi
