@@ -1,4 +1,0 @@
-paddleocr
-pillow
-pandas
-bokeh
