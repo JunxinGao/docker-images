@@ -1,0 +1,13 @@
+# Install Anaconda
+ARG CONDA_HOME="/opt"
+ENV CONDA_HOME="${CONDA_HOME}"
+RUN mkdir -p $CONDA_HOME && chown 1000:1000 -R $CONDA_HOME
+USER 1000
+ARG ANACONDA="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+RUN curl ${ANACONDA} -o /tmp/anaconda.sh && \
+    /bin/bash /tmp/anaconda.sh -b -p ${CONDA_HOME}/conda && \
+    rm /tmp/anaconda.sh
+USER root
+RUN ln -s ${ANACONDA}/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+ENV PATH="${CONDA_HOME}/conda/bin:${PATH}"
+RUN conda install -c conda-forge mamba

@@ -1,0 +1,5 @@
+WORKDIR /work
+RUN . ${CONDA_HOME}/conda/etc/profile.d/conda.sh && \
+    conda install paddlepaddle-gpu==2.1.2 cudatoolkit=10.1 --channel https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/Paddle/
+COPY    requirements.txt .
+RUN     pip install -i https://mirrors.aliyun.com/pypi/simple -r requirements.txt

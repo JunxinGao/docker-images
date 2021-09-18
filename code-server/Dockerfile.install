@@ -1,0 +1,22 @@
+# code-server
+RUN ARCH="$(dpkg --print-architecture)" && \
+    curl -s https://api.github.com/repos/cdr/code-server/releases/latest  | grep "browser_download_url" | grep -Eo "https://[^\"]*$ARCH.deb" | xargs wget -O /tmp/code-server.deb && \
+    dpkg -i /tmp/code-server.deb && rm /tmp/code-server.deb
+
+# Install Anaconda
+ARG CONDA_HOME
+ENV CONDA_HOME="${CONDA_HOME}"
+RUN mkdir -p $CONDA_HOME && chown 1000:1000 -R $CONDA_HOME
+USER 1000
+ARG ANACONDA="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+RUN curl ${ANACONDA} -o /tmp/anaconda.sh && \
+    /bin/bash /tmp/anaconda.sh -b -p ${CONDA_HOME}/conda && \
+    rm /tmp/anaconda.sh
+RUN . ${CONDA_HOME}/conda/etc/profile.d/conda.sh && conda install jupyter
+
+USER root
+ENV PATH="${CONDA_HOME}/conda/bin:${PATH}"
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+WORKDIR /data
+EXPOSE 8080
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]

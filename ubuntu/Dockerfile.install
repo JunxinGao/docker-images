@@ -1,0 +1,21 @@
+ENV SHELL /bin/bash
+# set timezome
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+
+RUN apt-get update && \
+    apt-get install -y curl git wget unzip vim screen htop libsm6 libxext6 libxrender-dev openssh-server locales
+
+# locale
+RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen
+ENV LANG=en_US.UTF-8
+
+# fixuid
+RUN ARCH="$(dpkg --print-architecture)" && \
+    curl -s https://api.github.com/repos/boxboat/fixuid/releases/latest | grep "browser_download_url" | grep -Eo "https://[^\"]*$ARCH.tar.gz" | xargs wget -O /tmp/fixuid.tar.gz && \
+    tar -C /usr/local/bin -xzf /tmp/fixuid.tar.gz && \
+    chown root:root /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
+    mkdir -p /etc/fixuid && \
+    rm /tmp/fixuid.tar.gz

@@ -1,0 +1,5 @@
+USER root
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+WORKDIR /data
+EXPOSE 8080
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]

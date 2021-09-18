@@ -1,0 +1,8 @@
+RUN mkdir /conf && mkdir /frpc
+VOLUME /conf
+COPY run.sh /frpc
+
+USER nobody
+WORKDIR /frpc
+ENTRYPOINT ["/bin/sh","run.sh"]
+# CMD ["/bin/sh", "-c", "exec frpc -c /conf/frpc.ini & ss-server -s $SERVER_ADDR -p $SERVER_PORT -k ${PASSWORD:-$(hostname)} -m $METHOD -t $TIMEOUT -d $DNS_ADDRS -u $ARGS"]
