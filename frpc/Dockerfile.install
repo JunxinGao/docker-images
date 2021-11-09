@@ -1,0 +1,6 @@
+USER root
+RUN ARCH="amd64" && apk update && apk add --no-cache curl && \
+    curl -s https://api.github.com/repos/fatedier/frp/releases/latest | grep "browser_download_url" | grep -Eo "https://[^\"]*linux_$ARCH.tar.gz" | xargs wget -O /tmp/frp.tar.gz && \
+    tar -xzf /tmp/frp.tar.gz -C /usr/local/bin --strip-components 1 \
+    && chmod +x /usr/local/bin/frpc \
+    && rm /tmp/frp.tar.gz
