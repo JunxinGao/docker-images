@@ -1,0 +1,21 @@
+name: build_one
+
+on:
+  workflow_dispatch: #allows you to trigger manually
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: DockerHub Login
+      run: |
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+      env:
+        USERNAME: ${{ secrets.DOCKER_USERNAME  }}
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD  }}
+    - name: Build the Docker image
+      run: cd frpc && ../build.sh && ../push.sh

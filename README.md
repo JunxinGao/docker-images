@@ -1,5 +1,6 @@
 # docker-images
 ![CI](https://github.com/junxingao/docker-images/workflows/Docker%20Image%20CI/badge.svg)
+![CI](https://github.com/junxingao/docker-images/workflows/build_one/badge.svg)
 ## 插入式Dockerfile通用模块配置
 写Dockerfile的时候常常遇到一些软件环境是通用的，例如在ubuntu系统上总是要安装固定的软件，python环境总是需要下载conda安装，但由于构建的基础镜像不同就会重复写类似的Dockerfile。
 
