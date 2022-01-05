@@ -10,4 +10,4 @@ RUN curl ${ANACONDA} -o /tmp/anaconda.sh && \
 USER root
 RUN ln -s ${ANACONDA}/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 ENV PATH="${CONDA_HOME}/conda/bin:${PATH}"
-RUN conda install -c conda-forge mamba
+RUN conda install -c conda-forge mamba nb_conda_kernels
