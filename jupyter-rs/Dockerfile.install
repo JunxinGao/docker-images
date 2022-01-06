@@ -1,4 +1,5 @@
-# RUN rustup component add rust-src
+RUN export PATH="${PATH}:/usr/local/cargo/bin"
+RUN rustup component add rust-src
 
 RUN apt-get update && \
     apt-get install -y cmake build-essential
