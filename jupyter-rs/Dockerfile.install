@@ -6,9 +6,3 @@ RUN apt-get update && \
 # Install jupyter
 RUN cargo install evcxr_jupyter
 RUN evcxr_jupyter --install
-
-ENV NOTEBOOK_CONFIG="/root/.jupyter/jupyter_notebook_config.py"
-RUN mkdir -p /root/.jupyter && \
-    echo "c.ServerApp.ip = '0.0.0.0'" >> ${NOTEBOOK_CONFIG} && \
-    echo "c.ServerApp.allow_root = True" >> ${NOTEBOOK_CONFIG} && \
-    echo "c.NotebookApp.open_browser = False" >> ${NOTEBOOK_CONFIG}
