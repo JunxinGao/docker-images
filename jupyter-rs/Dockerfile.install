@@ -1,4 +1,4 @@
-RUN export PATH="${PATH}:/usr/local/cargo/bin"
+ENV PATH="/usr/local/cargo/bin:${PATH}"
 RUN rustup component add rust-src
 
 RUN apt-get update && \
