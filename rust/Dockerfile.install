@@ -5,8 +5,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
 
 RUN apt-get update && \
-    apt-get install -y curl git wget unzip vim screen htop libsm6 libxext6 libxrender-dev openssh-server locales
+    apt-get install -y sudo curl git wget unzip vim screen htop libsm6 libxext6 libxrender-dev openssh-server locales tree
 
 # locale
 RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen
 ENV LANG=en_US.UTF-8
+ENV PATH="/usr/local/cargo/bin:$PATH"
