@@ -4,3 +4,8 @@ RUN ARCH="amd64" && apk update && apk add --no-cache curl && \
     tar -xzf /tmp/frp.tar.gz -C /usr/local/bin --strip-components 1 \
     && chmod +x /usr/local/bin/frpc \
     && rm /tmp/frp.tar.gz
+
+# enable bbr
+RUN echo "net.core.default_qdisc = fq" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_congestion_control = bbr" >> /etc/sysctl.conf
+
