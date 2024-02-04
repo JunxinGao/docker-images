@@ -1,6 +1,5 @@
-RUN mkdir /conf && mkdir /frpc
+RUN mkdir /conf
 VOLUME /conf
 
 USER nobody
-WORKDIR /frpc
 CMD ["/bin/sh", "-c", "exec frpc -c /conf/frpc.ini"]

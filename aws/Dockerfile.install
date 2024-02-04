@@ -1,0 +1,21 @@
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install packages
+RUN apt-get update && apt-get install -y bc curl groff jq less unzip zip git wget
+
+RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt install nodejs -y
+
+# Install docker client
+RUN wget "https://download.docker.com/linux/static/stable/x86_64/docker-20.10.9.tgz" -O "/tmp/docker.tgz" && \
+    tar -xzf /tmp/docker.tgz -C /tmp/ && \
+    cp /tmp/docker/docker* /usr/bin && \
+    chmod +x /usr/bin/docker* && \
+    rm -rf /tmp/*
+
+# Download and unzip aws CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+
+# Run AWS install
+RUN ./aws/install
